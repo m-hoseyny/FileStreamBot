@@ -26,9 +26,11 @@ async def root_route_handler(request):
 @routes.get(r"/{message_id:\d+}/{name}")
 async def stream_handler(request):
     try:
+        logging.info('Entered Message ID: {}'.format(request.match_info['message_id']))
         message_id = int(request.match_info['message_id'])
         return await media_streamer(request, message_id)
     except ValueError as e:
+        logging.error("Error in stram handler\r")
         logging.error(e)
         raise web.HTTPNotFound
 
@@ -38,6 +40,7 @@ async def media_streamer(request, message_id: int):
     media_msg = await StreamBot.get_messages(Var.BIN_CHANNEL, message_id)
     file_properties = await TGCustomYield().generate_file_properties(media_msg)
     file_size = file_properties.file_size
+    logging.info('File size {}'.format(file_size))
 
     if range_header:
         from_bytes, until_bytes = range_header.replace('bytes=', '').split('-')
@@ -59,6 +62,7 @@ async def media_streamer(request, message_id: int):
 
     file_name = file_properties.file_name if file_properties.file_name \
         else f"{secrets.token_hex(2)}.jpeg"
+    logging.info('File name {}'.format(file_name))
     mime_type = file_properties.mime_type if file_properties.mime_type \
         else f"{mimetypes.guess_type(file_name)}"
 
