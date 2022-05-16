@@ -12,6 +12,11 @@ from pyrogram.errors import UserNotParticipant
 START_TEXT = """
 Hi there :))"""
 
+ABOUT_TEXT = '''
+This is non funtional bot
+'''
+
+
 START_BUTTONS = InlineKeyboardMarkup(
         [[
         InlineKeyboardButton('Hᴇʟᴘ', callback_data='help'),
