@@ -31,3 +31,4 @@ class Var(object):
     PING_INTERVAL = int(getenv('PING_INTERVAL', '500'))
     UPDATES_CHANNEL = str(getenv('UPDATES_CHANNEL', None))
     BANNED_CHANNELS = list(set(int(x) for x in str(getenv("BANNED_CHANNELS", "-1001296894100")).split()))
+    PHONE_NUMBER = str(getenv('PHONE_NUMBER', None))
