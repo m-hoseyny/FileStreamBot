@@ -1,5 +1,5 @@
 
-# (c) @Avishkarpatil 
+# (c) @PapkornBot 
 
 
 import asyncio
@@ -44,7 +44,7 @@ async def private_receive_handler(c: Client, m: Message):
             if user.status == "kicked":
                 await c.send_message(
                     chat_id=m.chat.id,
-                    text="__Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ.__\n\n  **Cᴏɴᴛᴀᴄᴛ Dᴇᴠᴇʟᴏᴘᴇʀ @Avishkarpatil Tʜᴇʏ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**",
+                    text="__Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ.__\n\n  **Cᴏɴᴛᴀᴄᴛ Dᴇᴠᴇʟᴏᴘᴇʀ @PapkornBot Tʜᴇʏ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**",
                     parse_mode="markdown",
                     disable_web_page_preview=True
                 )
@@ -62,7 +62,7 @@ async def private_receive_handler(c: Client, m: Message):
         except Exception:
             await c.send_message(
                 chat_id=m.chat.id,
-                text="**Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ Wʀᴏɴɢ. Cᴏɴᴛᴀᴄᴛ ᴍʏ ʙᴏss** @Avishkarpatil",
+                text="**Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ Wʀᴏɴɢ. Cᴏɴᴛᴀᴄᴛ ᴍʏ ʙᴏss** @PapkornBot",
                 parse_mode="markdown",
                 disable_web_page_preview=True)
             return
@@ -70,7 +70,7 @@ async def private_receive_handler(c: Client, m: Message):
         log_msg = await m.forward(chat_id=Var.BIN_CHANNEL)
         file_name = get_media_file_name(m)
         file_size = humanbytes(get_media_file_size(m))
-        stream_link = "https://{}/{}/{}".format(Var.FQDN, log_msg.message_id, file_name) if Var.ON_HEROKU or Var.NO_PORT else \
+        stream_link = "http://{}/{}/{}".format(Var.FQDN, log_msg.message_id, file_name) if Var.ON_HEROKU or Var.NO_PORT else \
             "http://{}:{}/{}/{}".format(Var.FQDN,
                                     Var.PORT,
                                     log_msg.message_id,

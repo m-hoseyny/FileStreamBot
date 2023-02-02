@@ -10,10 +10,12 @@ from pyrogram.errors import UserNotParticipant
 # db = Database(Var.DATABASE_URL, Var.SESSION_NAME)
 
 START_TEXT = """
-Hi there :))"""
+To get free movies/series, use @EzPzFileBot! 
+@EzPzFileBot is for PapkornBot owner! But free
+"""
 
 ABOUT_TEXT = '''
-This is non funtional bot
+This bot is created by owner of PapkornBot. However to acces to free content use: @EzPzFileBot
 '''
 
 
@@ -49,7 +51,7 @@ async def cb_data(bot, update):
         )
     elif update.data == "help":
         await update.message.edit_text(
-            text=HELP_TEXT,
+            text=ABOUT_TEXT,
             disable_web_page_preview=True,
             reply_markup=HELP_BUTTONS
         )
@@ -94,7 +96,7 @@ async def start(b, m):
                 if user.status == "kicked":
                     await b.send_message(
                         chat_id=m.chat.id,
-                        text="__Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ. Cᴏɴᴛᴀᴄᴛ ᴛʜᴇ Dᴇᴠᴇʟᴏᴘᴇʀ__\n\n @AvishkarPatil **Tʜᴇʏ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**",
+                        text="__Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ. Cᴏɴᴛᴀᴄᴛ ᴛʜᴇ Dᴇᴠᴇʟᴏᴘᴇʀ__\n\n @PapkornBot **Tʜᴇʏ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**",
                         parse_mode="markdown",
                         disable_web_page_preview=True
                     )
@@ -102,19 +104,19 @@ async def start(b, m):
             except UserNotParticipant:
                 await b.send_message(
                     chat_id=m.chat.id,
-                    text="<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ 🔐</i>",
-                    reply_markup=InlineKeyboardMarkup(
-                        [[
-                            InlineKeyboardButton("Jᴏɪɴ ɴᴏᴡ 🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
-                            ]]
-                    ),
+                    text="<i>you cannot access to the bot!</i>",
+                    # reply_markup=InlineKeyboardMarkup(
+                    #     [[
+                    #         InlineKeyboardButton("Jᴏɪɴ ɴᴏᴡ 🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
+                    #         ]]
+                    # ),
                     parse_mode="HTML"
                 )
                 return
-            except Exception:
+            except Exception as e:
                 await b.send_message(
                     chat_id=m.chat.id,
-                    text="<i>Sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ᴄᴏɴᴛᴀᴄᴛ ᴍʏ ᴅᴇᴠᴇʟᴏᴘᴇʀ</i> <b><a href='http://t.me/Avishkarpatil'>[ ᴄʟɪᴄᴋ ʜᴇʀᴇ ]</a></b>",
+                    text=f"<i>Somthing's wrong! Please try later...{e}</i>",
                     parse_mode="HTML",
                     disable_web_page_preview=True)
                 return
@@ -133,7 +135,7 @@ async def start(b, m):
                 if user.status == "kicked":
                     await b.send_message(
                         chat_id=m.chat.id,
-                        text="**Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ. Qᴜɪᴄᴋʟʏ ᴄᴏɴᴛᴀᴄᴛ** @Avishkarpatil",
+                        text="**Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ. Qᴜɪᴄᴋʟʏ ᴄᴏɴᴛᴀᴄᴛ** @PapkornBot",
                         parse_mode="markdown",
                         disable_web_page_preview=True
                     )
@@ -141,7 +143,7 @@ async def start(b, m):
             except UserNotParticipant:
                 await b.send_message(
                     chat_id=m.chat.id,
-                    text="**Pʟᴇᴀsᴇ Jᴏɪɴ Mʏ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴛʜɪs Bᴏᴛ**!\n\n**Dᴜᴇ ᴛᴏ Oᴠᴇʀʟᴏᴀᴅ, Oɴʟʏ Cʜᴀɴɴᴇʟ Sᴜʙsᴄʀɪʙᴇʀs ᴄᴀɴ ᴜsᴇ ᴛʜᴇ Bᴏᴛ**!",
+                    text="**You cannot access to the bot! Please use @EzPzFileBot**!!",
                     # reply_markup=InlineKeyboardMarkup(
                     #     [[
                     #       InlineKeyboardButton("🤖 Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ", url=f"https://t.me/{Var.UPDATES_CHANNEL}")],
@@ -155,7 +157,7 @@ async def start(b, m):
             except Exception:
                 await b.send_message(
                     chat_id=m.chat.id,
-                    text="**Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ Wʀᴏɴɢ. Cᴏɴᴛᴀᴄᴛ ᴍᴇ** [Aᴠɪsʜᴋᴀʀ Pᴀᴛɪʟ](https://t.me/Avishkarpatil).",
+                    text="**Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ Wʀᴏɴɢ. Cᴏɴᴛᴀᴄᴛ ᴍᴇ** PapkornBot(https://t.me/PapokornBot).",
                     parse_mode="markdown",
                     disable_web_page_preview=True)
                 return
@@ -164,7 +166,7 @@ async def start(b, m):
         file_name = get_media_file_name(get_msg)
         file_size = humanbytes(get_media_file_size(get_msg))
 
-        stream_link = "https://{}/{}/{}".format(Var.FQDN, get_msg.message_id, file_name) if Var.ON_HEROKU or Var.NO_PORT else \
+        stream_link = "http://{}/{}/{}".format(Var.FQDN, get_msg.message_id, file_name) if Var.ON_HEROKU or Var.NO_PORT else \
             "http://{}:{}/{}/{}".format(Var.FQDN,
                                      Var.PORT,
                                      get_msg.message_id,
@@ -176,7 +178,7 @@ async def start(b, m):
 <b>📦 Fɪʟᴇ ꜱɪᴢᴇ :</b> <i>{}</i>\n
 <b>📥 Dᴏᴡɴʟᴏᴀᴅ :</b> <i>{}</i>\n
 <b>🚸 Nᴏᴛᴇ : Lɪɴᴋ ᴇxᴘɪʀᴇᴅ ɪɴ 24 ʜᴏᴜʀꜱ</b>\n
-<i>🍃 Bᴏᴛ Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ :</i> <b>@AvishkarPatil</b>
+<i>🍃 Bᴏᴛ Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ :</i> <b>@PapkornBot</b>
 """
 
         await m.reply_text(
@@ -218,19 +220,19 @@ async def help_handler(bot, message):
         except UserNotParticipant:
             await bot.send_message(
                 chat_id=message.chat.id,
-                text="**Pʟᴇᴀsᴇ Jᴏɪɴ Mʏ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴛʜɪs Bᴏᴛ!**\n\n__Dᴜᴇ ᴛᴏ Oᴠᴇʀʟᴏᴀᴅ, Oɴʟʏ Cʜᴀɴɴᴇʟ Sᴜʙsᴄʀɪʙᴇʀs ᴄᴀɴ ᴜsᴇ ᴛʜᴇ Bᴏᴛ!__",
-                reply_markup=InlineKeyboardMarkup(
-                    [[
-                        InlineKeyboardButton("🤖 Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
-                        ]]
-                ),
+                text="Please start @EzPzFileBot",
+                # reply_markup=InlineKeyboardMarkup(
+                #     [[
+                #         InlineKeyboardButton("🤖 Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
+                #         ]]
+                # ),
                 parse_mode="markdown"
             )
             return
         except Exception:
             await bot.send_message(
                 chat_id=message.chat.id,
-                text="__Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ Wʀᴏɴɢ. Cᴏɴᴛᴀᴄᴛ ᴍᴇ__ [Aᴠɪsʜᴋᴀʀ Pᴀᴛɪʟ](https://t.me/Avishkarpatil).",
+                text="__Sᴏᴍᴇᴛʜɪɴɢ ᴡᴇɴᴛ Wʀᴏɴɢ. Cᴏɴᴛᴀᴄᴛ ᴍᴇ__ PapkornBot(https://t.me/PapokornBot).",
                 parse_mode="markdown",
                 disable_web_page_preview=True)
             return
