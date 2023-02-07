@@ -18,6 +18,8 @@ ABOUT_TEXT = '''
 This bot is created by owner of PapkornBot. However to acces to free content use: @EzPzFileBot
 '''
 
+HELP_TEXT = ABOUT_TEXT
+
 
 START_BUTTONS = InlineKeyboardMarkup(
         [[
@@ -89,14 +91,15 @@ async def start(b, m):
     #         f"**Nᴇᴡ Usᴇʀ Jᴏɪɴᴇᴅ:** \n\n__Mʏ Nᴇᴡ Fʀɪᴇɴᴅ__ [{m.from_user.first_name}](tg://user?id={m.from_user.id}) __Sᴛᴀʀᴛᴇᴅ Yᴏᴜʀ Bᴏᴛ !!__"
     #     )
     usr_cmd = m.text.split("_")[-1]
+    print(usr_cmd)
     if usr_cmd == "/start":
         if Var.UPDATES_CHANNEL != "None":
             try:
                 user = await b.get_chat_member(Var.UPDATES_CHANNEL, m.chat.id)
-                if user.status == "kicked":
+                if user.status == "kicked" or ('Papkorn' not in usr_cmd and len(m.text.split("_")) > 1) :
                     await b.send_message(
                         chat_id=m.chat.id,
-                        text="__Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ. Cᴏɴᴛᴀᴄᴛ ᴛʜᴇ Dᴇᴠᴇʟᴏᴘᴇʀ__\n\n @PapkornBot **Tʜᴇʏ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**",
+                        text="Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ.\n\n @EzPzFileBot",
                         parse_mode="markdown",
                         disable_web_page_preview=True
                     )
@@ -104,7 +107,7 @@ async def start(b, m):
             except UserNotParticipant:
                 await b.send_message(
                     chat_id=m.chat.id,
-                    text="<i>you cannot access to the bot!</i>",
+                    text="you cannot access to the bot!",
                     # reply_markup=InlineKeyboardMarkup(
                     #     [[
                     #         InlineKeyboardButton("Jᴏɪɴ ɴᴏᴡ 🔓", url=f"https://t.me/{Var.UPDATES_CHANNEL}")
@@ -135,7 +138,7 @@ async def start(b, m):
                 if user.status == "kicked":
                     await b.send_message(
                         chat_id=m.chat.id,
-                        text="**Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ. Qᴜɪᴄᴋʟʏ ᴄᴏɴᴛᴀᴄᴛ** @PapkornBot",
+                        text="**Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ. Qᴜɪᴄᴋʟʏ ᴄᴏɴᴛᴀᴄᴛ** @EzPzFileBot",
                         parse_mode="markdown",
                         disable_web_page_preview=True
                     )
@@ -166,8 +169,8 @@ async def start(b, m):
         file_name = get_media_file_name(get_msg)
         file_size = humanbytes(get_media_file_size(get_msg))
 
-        stream_link = "http://{}/{}/{}".format(Var.FQDN, get_msg.message_id, file_name) if Var.ON_HEROKU or Var.NO_PORT else \
-            "http://{}:{}/{}/{}".format(Var.FQDN,
+        stream_link = "https://{}/pk/{}/{}".format(Var.FQDN, get_msg.message_id, file_name) if Var.ON_HEROKU or Var.NO_PORT else \
+            "https://{}:{}/pk/{}/{}".format(Var.FQDN,
                                      Var.PORT,
                                      get_msg.message_id,
                                      file_name)
@@ -178,7 +181,7 @@ async def start(b, m):
 <b>📦 Fɪʟᴇ ꜱɪᴢᴇ :</b> <i>{}</i>\n
 <b>📥 Dᴏᴡɴʟᴏᴀᴅ :</b> <i>{}</i>\n
 <b>🚸 Nᴏᴛᴇ : Lɪɴᴋ ᴇxᴘɪʀᴇᴅ ɪɴ 24 ʜᴏᴜʀꜱ</b>\n
-<i>🍃 Bᴏᴛ Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ :</i> <b>@PapkornBot</b>
+<i>🍃 Bᴏᴛ Mᴀɪɴᴛᴀɪɴᴇᴅ Bʏ :</i> <b>@EzPzFileBot</b>
 """
 
         await m.reply_text(
@@ -209,6 +212,7 @@ async def help_handler(bot, message):
     if Var.UPDATES_CHANNEL is not None:
         try:
             user = await bot.get_chat_member(Var.UPDATES_CHANNEL, message.chat.id)
+            print(user, user.status)
             if user.status == "kicked":
                 await bot.send_message(
                     chat_id=message.chat.id,

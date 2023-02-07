@@ -21,12 +21,12 @@ async def root_route_handler(request):
                               "Telegram_Bot": 'https://t.me/PapkornBot'})
 
 
-@routes.get("/{message_id}")
-@routes.get("/{message_id}/")
-@routes.get(r"/{message_id:\d+}/{name}")
+@routes.get("/pk/{message_id}")
+@routes.get("/pk/{message_id}/")
+@routes.get(r"/pk/{message_id:\d+}/{name}")
 async def stream_handler(request):
     try:
-        print('Entered Message ID: {}'.format(request.match_info['message_id']))
+        # print('Entered Message ID: {}'.format(request.match_info['message_id']))
         message_id = int(request.match_info['message_id'])
         return await media_streamer(request, message_id)
     except ValueError as e:
@@ -38,11 +38,11 @@ async def stream_handler(request):
 async def media_streamer(request, message_id: int):
     range_header = request.headers.get('Range', 0)
     media_msg = await StreamBot.get_messages(Var.BIN_CHANNEL, message_id)
-    print("media message: {} - [{}]".format(media_msg, Var.BIN_CHANNEL))
+    # print("media message: {} - [{}]".format(media_msg, Var.BIN_CHANNEL))
     file_properties = await TGCustomYield().generate_file_properties(media_msg)
-    print("File properties: {}".format(file_properties))
+    # print("File properties: {}".format(file_properties))
     file_size = file_properties.file_size
-    print('File size {}'.format(file_size))
+    # print('File size {}'.format(file_size))
 
     if range_header:
         from_bytes, until_bytes = range_header.replace('bytes=', '').split('-')
