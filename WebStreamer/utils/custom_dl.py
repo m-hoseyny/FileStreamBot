@@ -157,7 +157,7 @@ class TGCustomYield:
 
         location = await self.get_location(data)
 
-        r = await media_session.send(
+        r = await media_session.invoke(
             raw.functions.upload.GetFile(
                 location=location,
                 offset=offset,
