@@ -52,15 +52,27 @@ async def media_streamer(request, message_id: int):
         from_bytes = request.http_range.start or 0
         until_bytes = request.http_range.stop or file_size - 1
 
-    req_length = until_bytes - from_bytes
+    if (until_bytes > file_size) or (from_bytes < 0) or (until_bytes < from_bytes):
+        return web.Response(
+            status=416,
+            body="416: Range not satisfiable",
+            headers={"Content-Range": f"bytes */{file_size}"},
+        )
 
-    new_chunk_size = await chunk_size(req_length)
-    offset = await offset_fix(from_bytes, new_chunk_size)
+    req_length = until_bytes - from_bytes + 1
+
+    chunk_size = 1024 * 1024
+    until_bytes = min(until_bytes, file_size - 1)
+
+    offset = from_bytes - (from_bytes % chunk_size)
     first_part_cut = from_bytes - offset
-    last_part_cut = (until_bytes % new_chunk_size) + 1
-    part_count = math.ceil(req_length / new_chunk_size)
+    last_part_cut = until_bytes % chunk_size + 1
+
+    req_length = until_bytes - from_bytes + 1
+    part_count = math.ceil(until_bytes / chunk_size) - math.floor(offset / chunk_size)
+    
     body = TGCustomYield().yield_file(media_msg, offset, first_part_cut, last_part_cut, part_count,
-                                      new_chunk_size)
+                                      chunk_size)
 
     file_name = file_properties.file_name if file_properties.file_name \
         else f"{secrets.token_hex(2)}.jpeg"
@@ -74,12 +86,10 @@ async def media_streamer(request, message_id: int):
         headers={
             "Content-Type": mime_type,
             "Content-Range": f"bytes {from_bytes}-{until_bytes}/{file_size}",
+            "Content-Length": str(req_length),
             "Content-Disposition": f'attachment; filename="{file_name}"',
             "Accept-Ranges": "bytes",
         }
     )
-
-    if return_resp.status == 200:
-        return_resp.headers.add("Content-Length", str(file_size))
 
     return return_resp
